@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Logistic_DbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="SafetyStock" Type="Int32" />
+    <Property Name="Inventory" Type="Int32" />
+    <Property Name="LeadTime" Type="Int32" />
+    <Property Name="LostSize" Type="Int32" />
+    <Property Name="ItemTypeId" Type="Int32" />
+    <NavigationProperty Name="ItemType" Relationship="Self.FK__Item__ItemTypeId__267ABA7A" FromRole="Item" ToRole="ItemType" />
+    <NavigationProperty Name="ItemRelationships" Relationship="Self.FK__ItemRelat__Child__2A4B4B5E" FromRole="Item" ToRole="ItemRelationship" />
+    <NavigationProperty Name="ItemRelationships1" Relationship="Self.FK__ItemRelat__Paren__29572725" FromRole="Item" ToRole="ItemRelationship" />
+  </EntityType>
+  <EntityType Name="ItemRelationship">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="ParentId" Type="Int32" Nullable="false" />
+    <Property Name="ChildId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Item" Relationship="Self.FK__ItemRelat__Child__2A4B4B5E" FromRole="ItemRelationship" ToRole="Item" />
+    <NavigationProperty Name="Item1" Relationship="Self.FK__ItemRelat__Paren__29572725" FromRole="ItemRelationship" ToRole="Item" />
+  </EntityType>
+  <EntityType Name="ItemType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Items" Relationship="Self.FK__Item__ItemTypeId__267ABA7A" FromRole="ItemType" ToRole="Item" />
+  </EntityType>
+  <Association Name="FK__Item__ItemTypeId__267ABA7A">
+    <End Role="ItemType" Type="Self.ItemType" Multiplicity="0..1" />
+    <End Role="Item" Type="Self.Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ItemType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="ItemTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ItemRelat__Child__2A4B4B5E">
+    <End Role="Item" Type="Self.Item" Multiplicity="1" />
+    <End Role="ItemRelationship" Type="Self.ItemRelationship" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ItemRelationship">
+        <PropertyRef Name="ChildId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ItemRelat__Paren__29572725">
+    <End Role="Item" Type="Self.Item" Multiplicity="1" />
+    <End Role="ItemRelationship" Type="Self.ItemRelationship" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ItemRelationship">
+        <PropertyRef Name="ParentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AppDbContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Items" EntityType="Self.Item" />
+    <EntitySet Name="ItemRelationships" EntityType="Self.ItemRelationship" />
+    <EntitySet Name="ItemTypes" EntityType="Self.ItemType" />
+    <AssociationSet Name="FK__Item__ItemTypeId__267ABA7A" Association="Self.FK__Item__ItemTypeId__267ABA7A">
+      <End Role="ItemType" EntitySet="ItemTypes" />
+      <End Role="Item" EntitySet="Items" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ItemRelat__Child__2A4B4B5E" Association="Self.FK__ItemRelat__Child__2A4B4B5E">
+      <End Role="Item" EntitySet="Items" />
+      <End Role="ItemRelationship" EntitySet="ItemRelationships" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ItemRelat__Paren__29572725" Association="Self.FK__ItemRelat__Paren__29572725">
+      <End Role="Item" EntitySet="Items" />
+      <End Role="ItemRelationship" EntitySet="ItemRelationships" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
