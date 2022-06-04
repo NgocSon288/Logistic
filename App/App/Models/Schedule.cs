@@ -8,27 +8,11 @@ namespace App.Models
 {
     public class Schedule
     {
-        public int Id { get; set; }
+        public List<OrderCus> Orders { get; set; } // order sau khi quy về 1 hệ quy chiếu WA
 
-        public int Week { get; set; }
+        public Dictionary<(int,int), int> Inventories { get; set; }
 
-        public int Year { get; set; }
-
-        public int GrossRequirement { get; set; }
-
-        public int ScheduleReceipt { get; set; }
-
-        public int NetRequiment { get; set; }
-
-        public int ProjectOnHand { get; set; }
-
-        public int PlannedOrderReceipt { get; set; }
-
-        public int PlannedOrderRelease { get; set; }
-
-        public int Demand { get; set; }
-
-        public List<int> Children { get; set; }
+        public ItemCus item { get; set; }      // Inventory của WA
 
     }
 }

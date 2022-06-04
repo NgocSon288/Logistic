@@ -82,6 +82,7 @@
     <Compile Include="Dao\ItemDao.cs" />
     <Compile Include="Dao\ItemRelationshipDao.cs" />
     <Compile Include="Dao\OrderDao.cs" />
+    <Compile Include="Dao\ScheduleDao.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,6 +99,9 @@
     <Compile Include="ItemType.cs">
       <DependentUpon>AppDbContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ItemCus.cs" />
+    <Compile Include="Models\ItemReport.cs" />
+    <Compile Include="Models\OrderCus.cs" />
     <Compile Include="Models\Schedule.cs" />
     <Compile Include="Order.cs">
       <DependentUpon>AppDbContext.tt</DependentUpon>
